@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smoothie Blends | Reviews</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #66bb6a;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd54f;
+    }
+
+    .reviews {
+      padding: 30px;
+    }
+
+    .reviews h2 {
+      text-align: center;
+      color: #66bb6a;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .review-item {
+      background-color: #ffffff;
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-item h3 {
+      margin: 0 0 10px;
+      color: #388e3c;
+    }
+
+    .review-item p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .review-form {
+      max-width: 600px;
+      margin: 40px auto 0;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-form h3 {
+      text-align: center;
+      color: #66bb6a;
+      margin-bottom: 20px;
+    }
+
+    .review-form input,
+    .review-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .review-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #66bb6a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .review-form button:hover {
+      background-color: #4caf50;
+    }
+
+    footer {
+      background-color: #66bb6a;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Smoothie Blends</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="Product.html">Product</a>
+    <a href="Contact.html">Contact</a>
+    <a href="Cart.html">Cart</a>
+    <a href="FAQ.html">FAQ</a>
+    <a href="Checkout.html">Checkout</a>
+    <a href="Reviews.html">Reviews</a>
+    <a href="MyAccount.html">My Account</a>
+  </nav>
+</header>
+
+<section class="reviews">
+  <h2>Customer Reviews</h2>
+
+  <div id="reviewList"></div>
+
+  <div class="review-form">
+    <h3>Submit Your Review</h3>
+    <form id="reviewForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <textarea id="reviewText" placeholder="Write your review..." rows="4" required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; Designed by: Jennifer Hidalgo</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const reviewListDiv = document.getElementById('reviewList');
+  const reviewForm = document.getElementById('reviewForm');
+  let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+  function displayReviews() {
+    reviewListDiv.innerHTML = '';
+    reviews.forEach(function(review) {
+      reviewListDiv.innerHTML += `
+        <div class="review-item">
+          <h3>${review.name}</h3>
+          <p>${review.text}</p>
+        </div>
+      `;
+    });
+  }
+
+  displayReviews();
+
+  reviewForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const reviewText = document.getElementById('reviewText').value;
+
+    if (name && reviewText) {
+      const newReview = {
+        name: name,
+        text: reviewText,
+      };
+
+      reviews.push(newReview);
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+
+      document.getElementById('name').value = '';
+      document.getElementById('reviewText').value = '';
+
+      displayReviews();
+    }
+  });
+});
+</script>
+
+</body>
+</html>

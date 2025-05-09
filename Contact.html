@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smoothie Blends | Contact</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e8f5e9; /* Light green background */
+      color: #333;
+    }
+
+    header {
+      background-color: #81c784; /* Green header */
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .contact-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .contact-section p {
+      font-size: 16px;
+      margin-bottom: 30px;
+      color: #444;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #81c784; /* Green button */
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #66bb6a; /* Darker green on hover */
+    }
+
+    footer {
+      background-color: #81c784; /* Green footer */
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Smoothie Blends</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Product.html">Product</a>
+      <a href="Contact.html">Contact</a>
+      <a href="Cart.html">Cart</a>
+      <a href="FAQ.html">FAQ</a>
+      <a href="Checkout.html">Checkout</a>
+      <a href="Reviews.html">Reviews</a>
+      <a href="MyAccount.html">My Account</a>
+    </nav>
+  </header>
+
+  <section class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Have questions, feedback, or suggestions? We'd love to hear from you!</p>
+
+    <form>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Your email" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; Designed by: Jennifer Hidalgo</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smoothie Blends | My Account</title>
+  <style>
+     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #66bb6a;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .account-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .account-section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #7e57c2;
+    }
+
+    .account-details {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      padding: 30px;
+      text-align: left;
+    }
+
+    .account-details h3 {
+      color: #66bb6a;
+      margin-bottom: 10px;
+    }
+
+    .account-details p {
+      font-size: 16px;
+      margin: 8px 0;
+      color: #555;
+    }
+
+     footer {
+      background-color: #81c784;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Smoothie Blends</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Product.html">Product</a>
+      <a href="Contact.html">Contact</a>
+      <a href="Cart.html">Cart</a>
+      <a href="FAQ.html">FAQ</a>
+      <a href="Checkout.html">Checkout</a>
+      <a href="Reviews.html">Reviews</a>
+      <a href="MyAccount.html">My Account</a>
+    </nav>
+  </header>
+
+  <section class="account-section">
+    <h2>My Account</h2>
+    <div class="account-details">
+      <h3>Account Information</h3>
+      <p><strong>Name:</strong> Jennifer Hidalgo</p>
+      <p><strong>Email:</strong> jen@gmail.com</p>
+      <p><strong>Phone:</strong> 09272360370</p>
+      <p><strong>Address:</strong> Sitio Pugo, San Felipe Central Binalonan Pangasinan</p>
+
+      <h3>Recent Order</h3>
+      <div id="orderHistory"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; Designed by: Jennifer Hidalgo</p>
+  </footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
+
+    if (orderDetails) {
+      let orderHistoryDiv = document.getElementById('orderHistory');
+      orderHistoryDiv.innerHTML = `
+        <p><strong>Order Name:</strong> ${orderDetails.name}</p>
+        <p><strong>Delivery Address:</strong> ${orderDetails.address}</p>
+        <p><strong>Email:</strong> ${orderDetails.email}</p>
+        <p><strong>Phone:</strong> ${orderDetails.phone}</p>
+        <h4>Items Ordered:</h4>
+        <ul>
+          ${orderDetails.cart.map(item => `
+            <li>${item.name} (₱${item.price}) - Quantity: ${item.quantity}</li>
+          `).join('')}
+        </ul>
+        <p><strong>Total:</strong> ₱${orderDetails.totalAmount}</p>
+      `;
+    } else {
+      let orderHistoryDiv = document.getElementById('orderHistory');
+      orderHistoryDiv.innerHTML = "<p>No recent orders.</p>";
+    }
+  });
+  </script>
+
+</body>
+</html>

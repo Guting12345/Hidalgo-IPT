@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smoothie Blends | Cart</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #e8f5e9; /* Light green background */
+      color: #333;
+    }
+
+    header {
+      background-color: #81c784; /* Green header */
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .cart {
+      padding: 30px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      margin-bottom: 30px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+    .quantity-btns {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .quantity-btn {
+      padding: 5px 10px;
+      background-color: #81c784; /* Green button */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+
+    .quantity-btn:hover {
+      background-color: #66bb6a; /* Darker green on hover */
+    }
+
+    .cart-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 0 30px;
+    }
+
+    .cart-footer button {
+      padding: 10px 20px;
+      background-color: #81c784; /* Green button */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart-footer button:hover {
+      background-color: #66bb6a; /* Darker green on hover */
+    }
+
+    footer {
+      background-color: #81c784; /* Green footer */
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Smoothie Blends</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="Product.html">Product</a>
+    <a href="Contact.html">Contact</a>
+    <a href="Cart.html">Cart</a>
+    <a href="FAQ.html">FAQ</a>
+    <a href="Checkout.html">Checkout</a>
+    <a href="Reviews.html">Reviews</a>
+    <a href="MyAccount.html">My Account</a>
+  </nav>
+</header>
+
+<section class="cart">
+  <h2>Your Cart</h2>
+  <table id="cartTable">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="cartItems"></tbody>
+  </table>
+
+  <div class="cart-footer">
+    <span>Total: ₱<span id="totalPrice">0</span></span>
+    <div>
+      <button onclick="clearCart()">Clear Cart</button>
+      <button onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+  </div>
+</section>
+<br><br><Br><br><br><Br><Br><Br><br><br><Br><Br>
+<footer>
+  <p>&copy; Designed by: Jennifer Hidalgo</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let cartItemsDiv = document.getElementById('cartItems');
+  let totalPriceElement = document.getElementById('totalPrice');
+  cart = cart.filter(item => item && item.name);
+
+  if (cart.length === 0) {
+    cartItemsDiv.innerHTML = "<tr><td colspan='5'>Your cart is empty. <a href='Menu.html' style='color:#81c784;text-decoration:underline;'>Go to Menu</a></td></tr>";
+    totalPriceElement.textContent = "0";
+  } else {
+    let totalPrice = 0;
+    cart.forEach(function(item, index) {
+      let itemTotal = (item.price * (item.quantity || 1)).toFixed(2);
+      totalPrice += parseFloat(itemTotal);
+
+      cartItemsDiv.innerHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>
+            <div class="quantity-btns">
+              <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+              <span>${item.quantity || 1}</span>
+              <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+            </div>
+          </td>
+          <td>₱${item.price}</td>
+          <td>₱${itemTotal}</td>
+          <td><button onclick="removeFromCart(${index})">Delete</button></td>
+        </tr>
+      `;
+    });
+
+    totalPriceElement.textContent = totalPrice.toFixed(2);
+  }
+});
+
+function updateQuantity(index, change) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let item = cart[index];
+  item.quantity = Math.max(1, item.quantity + change);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  window.location.reload();
+}
+
+function removeFromCart(index) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  window.location.reload();
+}
+
+function clearCart() {
+  localStorage.removeItem('cart');
+  window.location.reload();
+}
+
+function proceedToCheckout() {
+  if (JSON.parse(localStorage.getItem('cart')) && JSON.parse(localStorage.getItem('cart')).length > 0) {
+    window.location.href = 'Checkout.html';
+  } else {
+    alert('Your cart is empty. Please add items before proceeding.');
+  }
+}
+</script>
+
+</body>
+</html>
